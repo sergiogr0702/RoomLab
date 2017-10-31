@@ -8,26 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.util.Log;
+import android.view.View;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 
-import es.unex.giiis.asee.todomanager_db.ToDoItem.Priority;
-import es.unex.giiis.asee.todomanager_db.ToDoItem.Status;
 import es.unex.giiis.asee.todomanager_db.database.ToDoItemCRUD;
 
 public class ToDoManagerActivity extends AppCompatActivity {
@@ -35,7 +22,6 @@ public class ToDoManagerActivity extends AppCompatActivity {
     // Add a ToDoItem Request Code
     private static final int ADD_TODO_ITEM_REQUEST = 0;
 
-    private static final String FILE_NAME = "TodoManagerActivityData.txt";
     private static final String TAG = "Lab-UserInterface";
 
     // IDs for menu items
@@ -57,13 +43,13 @@ public class ToDoManagerActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO - Attach Listener to FloatingActionButton. Implement onClick()
+                // - Attach Listener to FloatingActionButton. Implement onClick()
                 Intent intent = new Intent(ToDoManagerActivity.this, AddToDoActivity.class);
                 startActivityForResult(intent,ADD_TODO_ITEM_REQUEST);
             }
         });
 
-        //TODO - Get a reference to the RecyclerView
+        // - Get a reference to the RecyclerView
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         // use this setting to improve performance if you know that changes
@@ -71,11 +57,11 @@ public class ToDoManagerActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        //TODO - Set a Linear Layout Manager to the RecyclerView
+        // - Set a Linear Layout Manager to the RecyclerView
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        //TODO - Create a new Adapter for the RecyclerView
+        // - Create a new Adapter for the RecyclerView
         // specify an adapter (see also next example)
         mAdapter = new ToDoAdapter(this, new ToDoAdapter.OnItemClickListener() {
             @Override public void onItemClick(ToDoItem item) {
@@ -83,7 +69,7 @@ public class ToDoManagerActivity extends AppCompatActivity {
             }
         });
 
-        //TODO - Attach the adapter to the RecyclerView
+        // - Attach the adapter to the RecyclerView
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -92,7 +78,7 @@ public class ToDoManagerActivity extends AppCompatActivity {
 
         log("Entered onActivityResult()");
 
-        // TODO - Check result code and request code.
+        //  - Check result code and request code.
         // If user submitted a new ToDoItem
         // Create a new ToDoItem from the data Intent
         // and then add it to the adapter
@@ -128,9 +114,7 @@ public class ToDoManagerActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        // Save ToDoItems
-
-//        saveItems();
+        // ALTERNATIVE: Save all ToDoItems
 
     }
 
@@ -172,64 +156,6 @@ public class ToDoManagerActivity extends AppCompatActivity {
         List<ToDoItem> items = crud.getAll();
         mAdapter.load(items);
     }
-
-//    private void loadItems() {
-//        BufferedReader reader = null;
-//        try {
-//            FileInputStream fis = openFileInput(FILE_NAME);
-//            reader = new BufferedReader(new InputStreamReader(fis));
-//
-//            String title = null;
-//            String priority = null;
-//            String status = null;
-//            Date date = null;
-//
-//            while (null != (title = reader.readLine())) {
-//                priority = reader.readLine();
-//                status = reader.readLine();
-//                date = ToDoItem.FORMAT.parse(reader.readLine());
-//                mAdapter.add(new ToDoItem(title, Priority.valueOf(priority),
-//                        Status.valueOf(status), date));
-//            }
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (null != reader) {
-//                try {
-//                    reader.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    }
-
-    // Save ToDoItems to file
-//    private void saveItems() {
-//        PrintWriter writer = null;
-//        try {
-//            FileOutputStream fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
-//            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
-//                    fos)));
-//
-//            for (int idx = 0; idx < mAdapter.getItemCount(); idx++) {
-//
-//                writer.println(mAdapter.getItem(idx));
-//
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (null != writer) {
-//                writer.close();
-//            }
-//        }
-//    }
 
     private void log(String msg) {
         try {

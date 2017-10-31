@@ -15,9 +15,6 @@ import java.util.List;
 
 import es.unex.giiis.asee.todomanager_db.database.ToDoItemCRUD;
 
-/**
- * Created by rre on 12/10/16.
- */
 
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     private List<ToDoItem> mItems = new ArrayList<ToDoItem>();
@@ -31,7 +28,6 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public ToDoAdapter(Context context, OnItemClickListener listener) {
-//        mItems = items;
         mContext = context;
         this.listener = listener;
     }
@@ -40,11 +36,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     @Override
     public ToDoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                      int viewType) {
-        //TODO - Inflate the View for every element
+        // - Inflate the View for every element
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.todo_item, parent, false);
-//        .inflate(android.R.layout.simple_list_item_1, parent, false);
-        // set the view's size, margins, paddings and layout parameters
 
         return new ViewHolder(mContext,v);
     }
@@ -84,12 +78,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
     }
 
-//    @Override
-    public Object getItem(int pos) {
-
-        return mItems.get(pos);
-
-    }
+    public Object getItem(int pos) { return mItems.get(pos); }
 
      static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -105,7 +94,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
             mContext = context;
 
-            //TODO - Get the references to every widget of the Item View
+            // - Get the references to every widget of the Item View
             title = (TextView) itemView.findViewById(R.id.titleView);
             statusView = (CheckBox) itemView.findViewById(R.id.statusCheckBox);
             priorityView = (TextView) itemView.findViewById(R.id.priorityView);
@@ -115,17 +104,17 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
         public void bind(final ToDoItem toDoItem, final OnItemClickListener listener) {
 
-            //TODO - Display Title in TextView
+            // - Display Title in TextView
             title.setText(toDoItem.getTitle());
 
-            //TODO - Display Priority in a TextView
+            // - Display Priority in a TextView
             priorityView.setText(toDoItem.getPriority().toString());
 
-            // TODO - Display Time and Date.
+            //  - Display Time and Date.
             // Hint - use ToDoItem.FORMAT.format(toDoItem.getDate()) to get date and time String
             dateView.setText(ToDoItem.FORMAT.format(toDoItem.getDate()));
 
-            // TODO - Set up Status CheckBox
+            //  - Set up Status CheckBox
             statusView.setChecked(toDoItem.getStatus() == ToDoItem.Status.DONE);
 
             statusView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -133,7 +122,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
                 public void onCheckedChanged(CompoundButton buttonView,
                                              boolean isChecked) {
 
-                    // TODO - Set up and implement an OnCheckedChangeListener
+                    //  Set up and implement an OnCheckedChangeListener
                     // is called when the user toggles the status checkbox
                     if (isChecked) {
                         toDoItem.setStatus(ToDoItem.Status.DONE);

@@ -96,7 +96,7 @@ public class AddToDoActivity extends AppCompatActivity {
 			public void onClick(View v) {
 				log("Entered cancelButton.OnClickListener.onClick()");
 
-				//TODO - Implement onClick(). 
+				// - Implement onClick().
 				Intent data = new Intent();
 				setResult(RESULT_CANCELED, data);				
 				finish();		
@@ -112,7 +112,7 @@ public class AddToDoActivity extends AppCompatActivity {
 			public void onClick(View v) {
 				log("Entered resetButton.OnClickListener.onClick()");
 
-				//TODO - Reset data fields to default values
+				// - Reset data fields to default values
 				mTitleText.setText("");
 				mPriorityRadioGroup.check(mDefaultPriorityButton.getId());
 				mStatusRadioGroup.check(mDefaultStatusButton.getId());
@@ -133,13 +133,13 @@ public class AddToDoActivity extends AppCompatActivity {
 
 				// Gather ToDoItem data  
 				
-				//TODO - Get Priority
+				// - Get Priority
 				Priority priority = getPriority();
 
-				//TODO -  Get Status
+				// -  Get Status
 				Status status = getStatus();
 
-				//TODO -  Title
+				// -  Title
 				String titleString = mTitleText.getText().toString();
 
 				// Date
@@ -149,7 +149,7 @@ public class AddToDoActivity extends AppCompatActivity {
 				Intent data = new Intent();
 				ToDoItem.packageIntent(data, titleString, priority, status, fullDate);
 
-				//TODO - return data Intent and finish			
+				// - return data Intent and finish
 				setResult(RESULT_OK, data);				
 				finish();
 

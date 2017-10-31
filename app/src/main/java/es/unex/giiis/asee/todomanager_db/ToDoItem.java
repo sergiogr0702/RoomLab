@@ -7,8 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-// Do not modify 
-
 public class ToDoItem {
 
 	public static final String ITEM_SEP = System.getProperty("line.separator");
@@ -26,7 +24,6 @@ public class ToDoItem {
 	public final static String PRIORITY = "priority";
 	public final static String STATUS = "status";
 	public final static String DATE = "date";
-	public final static String FILENAME = "filename";
 
 	public final static SimpleDateFormat FORMAT = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss", Locale.US);
@@ -43,14 +40,6 @@ public class ToDoItem {
 		this.mStatus = status;
 		this.mDate = date;
 	}
-
-//	ToDoItem(long ID, String title, Priority priority, Status status, Date date) {
-//		this.mID = ID;
-//		this.mTitle = title;
-//		this.mPriority = priority;
-//		this.mStatus = status;
-//		this.mDate = date;
-//	}
 
     public ToDoItem(long ID, String title, String priority, String status, String date) {
         this.mID = ID;
@@ -126,17 +115,6 @@ public class ToDoItem {
 		intent.putExtra(ToDoItem.STATUS, status.toString());
 		intent.putExtra(ToDoItem.DATE, date);
 	
-	}
-
-	public static void packageIntent(long ID, Intent intent, String title,
-									 Priority priority, Status status, String date) {
-
-		intent.putExtra(ToDoItem.ID, ID);
-		intent.putExtra(ToDoItem.TITLE, title);
-		intent.putExtra(ToDoItem.PRIORITY, priority.toString());
-		intent.putExtra(ToDoItem.STATUS, status.toString());
-		intent.putExtra(ToDoItem.DATE, date);
-
 	}
 
 	public String toString() {

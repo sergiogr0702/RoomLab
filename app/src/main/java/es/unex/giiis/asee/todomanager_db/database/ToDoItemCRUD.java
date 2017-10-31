@@ -38,16 +38,10 @@ public final class ToDoItemCRUD {
                 DBContract.TodoItem.COLUMN_NAME_DATE
         };
 
-//        String selection = DBContract.TodoItem.COLUMN_NAME_TITLE + " = ?";
-//        String[] selectionArgs = { "My Title" };
-
         String selection = null;
         String[] selectionArgs = null;
 
         String sortOrder = null;
-        //TODO Sort by date
-//        String sortOrder =
-//                FeedEntry.COLUMN_NAME_SUBTITLE + " DESC";
 
         Cursor cursor = db.query(
                 DBContract.TodoItem.TABLE_NAME,           // The table to query
@@ -102,7 +96,7 @@ public final class ToDoItemCRUD {
         db.delete(DBContract.TodoItem.TABLE_NAME, selection, selectionArgs);
     }
 
-    public void updateStatus(long ID, ToDoItem.Status status) {
+    public int updateStatus(long ID, ToDoItem.Status status) {
 
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         Log.d("ToDoItemCRUD","Item ID: "+ID);
@@ -121,6 +115,7 @@ public final class ToDoItemCRUD {
                 selection,
                 selectionArgs);
 
+        return count;
     }
 
     public static ToDoItem getToDoItemFromCursor(Cursor cursor) {
