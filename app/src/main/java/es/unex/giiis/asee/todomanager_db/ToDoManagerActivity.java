@@ -71,6 +71,8 @@ public class ToDoManagerActivity extends AppCompatActivity {
 
         // - Attach the adapter to the RecyclerView
         mRecyclerView.setAdapter(mAdapter);
+
+        ToDoItemCRUD crud = ToDoItemCRUD.getInstance(this);
     }
 
     @Override
@@ -138,6 +140,8 @@ public class ToDoManagerActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case MENU_DELETE:
+                ToDoItemCRUD crud = ToDoItemCRUD.getInstance(this);
+                crud.deleteAll();
                 mAdapter.clear();
                 return true;
             case MENU_DUMP:
