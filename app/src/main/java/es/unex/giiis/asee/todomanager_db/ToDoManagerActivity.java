@@ -119,6 +119,13 @@ public class ToDoManagerActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        ToDoItemCRUD crud = ToDoItemCRUD.getInstance(this);
+        crud.close();
+        super.onDestroy();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 

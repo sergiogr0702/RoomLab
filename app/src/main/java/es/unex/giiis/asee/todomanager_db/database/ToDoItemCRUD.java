@@ -118,6 +118,10 @@ public final class ToDoItemCRUD {
         return count;
     }
 
+    public void close(){
+        if (mDbHelper!=null) mDbHelper.close();
+    }
+
     public static ToDoItem getToDoItemFromCursor(Cursor cursor) {
 
         long ID = cursor.getInt(cursor.getColumnIndex(DBContract.TodoItem._ID));
