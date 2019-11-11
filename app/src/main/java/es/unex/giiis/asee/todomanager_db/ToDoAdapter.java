@@ -2,13 +2,15 @@ package es.unex.giiis.asee.todomanager_db;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,10 +97,10 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
             mContext = context;
 
             // - Get the references to every widget of the Item View
-            title = (TextView) itemView.findViewById(R.id.titleView);
-            statusView = (CheckBox) itemView.findViewById(R.id.statusCheckBox);
-            priorityView = (TextView) itemView.findViewById(R.id.priorityView);
-            dateView = (TextView) itemView.findViewById(R.id.dateView);
+            title =  itemView.findViewById(R.id.titleView);
+            statusView =  itemView.findViewById(R.id.statusCheckBox);
+            priorityView =  itemView.findViewById(R.id.priorityView);
+            dateView =  itemView.findViewById(R.id.dateView);
 
         }
 

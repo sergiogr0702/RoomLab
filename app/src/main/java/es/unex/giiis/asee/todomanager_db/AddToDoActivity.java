@@ -6,8 +6,7 @@ import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +17,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -49,16 +51,16 @@ public class AddToDoActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_todo);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-		mTitleText = (EditText) findViewById(R.id.title);
-		mDefaultStatusButton = (RadioButton) findViewById(R.id.statusNotDone);
-		mDefaultPriorityButton = (RadioButton) findViewById(R.id.medPriority);
-		mPriorityRadioGroup = (RadioGroup) findViewById(R.id.priorityGroup);
-		mStatusRadioGroup = (RadioGroup) findViewById(R.id.statusGroup);
-		dateView = (TextView) findViewById(R.id.date);
-		timeView = (TextView) findViewById(R.id.time);
+		mTitleText = findViewById(R.id.title);
+		mDefaultStatusButton =  findViewById(R.id.statusNotDone);
+		mDefaultPriorityButton =  findViewById(R.id.medPriority);
+		mPriorityRadioGroup =  findViewById(R.id.priorityGroup);
+		mStatusRadioGroup =  findViewById(R.id.statusGroup);
+		dateView =  findViewById(R.id.date);
+		timeView =  findViewById(R.id.time);
 
 		// Set the default date and time
 
@@ -67,7 +69,7 @@ public class AddToDoActivity extends AppCompatActivity {
 		// OnClickListener for the Date button, calls showDatePickerDialog() to show
 		// the Date dialog
 
-		final Button datePickerButton = (Button) findViewById(R.id.date_picker_button);
+		final Button datePickerButton =  findViewById(R.id.date_picker_button);
 		datePickerButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -79,7 +81,7 @@ public class AddToDoActivity extends AppCompatActivity {
 		// OnClickListener for the Time button, calls showTimePickerDialog() to show
 		// the Time Dialog
 
-		final Button timePickerButton = (Button) findViewById(R.id.time_picker_button);
+		final Button timePickerButton =  findViewById(R.id.time_picker_button);
 		timePickerButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -90,7 +92,7 @@ public class AddToDoActivity extends AppCompatActivity {
 
 		// OnClickListener for the Cancel Button, 
 
-		final Button cancelButton = (Button) findViewById(R.id.cancelButton);
+		final Button cancelButton =  findViewById(R.id.cancelButton);
 		cancelButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -106,7 +108,7 @@ public class AddToDoActivity extends AppCompatActivity {
 
 		//OnClickListener for the Reset Button
 
-		final Button resetButton = (Button) findViewById(R.id.resetButton);
+		final Button resetButton =  findViewById(R.id.resetButton);
 		resetButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -125,7 +127,7 @@ public class AddToDoActivity extends AppCompatActivity {
 		// OnClickListener for the Submit Button
 		// Implement onClick().
 		
-		final Button submitButton = (Button) findViewById(R.id.submitButton);
+		final Button submitButton =  findViewById(R.id.submitButton);
 		submitButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

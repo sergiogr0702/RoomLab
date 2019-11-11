@@ -13,7 +13,7 @@
     tools:context="es.unex.giiis.asee.todomanager_db.ToDoManagerActivity"
     tools:showIn="@layout/activity_to_do_manager">
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_recycler_view"
         android:scrollbars="vertical"
         android:layout_width="match_parent"
