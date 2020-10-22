@@ -118,6 +118,8 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
             //  - Set up Status CheckBox
             statusView.setChecked(toDoItem.getStatus() == ToDoItem.Status.DONE);
+            if (toDoItem.getStatus() == ToDoItem.Status.DONE)
+                title.setBackgroundColor(Color.GREEN);
 
             statusView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
