@@ -66,9 +66,10 @@ public class ToDoManagerActivity extends AppCompatActivity {
 
         // - Create a new Adapter for the RecyclerView
         // specify an adapter (see also next example)
+        View view = findViewById(android.R.id.content);
         mAdapter = new ToDoAdapter(this, new ToDoAdapter.OnItemClickListener() {
             @Override public void onItemClick(ToDoItem item) {
-                Snackbar.make(ToDoManagerActivity.this.getCurrentFocus(), "Item "+item.getTitle()+" Clicked", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, "Item "+item.getTitle()+" Clicked", Snackbar.LENGTH_LONG).show();
             }
         });
 
