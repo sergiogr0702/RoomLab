@@ -2,13 +2,21 @@ package es.unex.giiis.asee.todomanager_db;
 
 import android.content.Intent;
 
+import androidx.room.*;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import es.unex.giiis.asee.todomanager_db.roomdb.DateConverter;
+import es.unex.giiis.asee.todomanager_db.roomdb.PriorityConverter;
+import es.unex.giiis.asee.todomanager_db.roomdb.StatusConverter;
+
+@Entity(tableName = "todo")
 public class ToDoItem {
 
+	@Ignore
 	public static final String ITEM_SEP = System.getProperty("line.separator");
 
 	public enum Priority {
@@ -19,89 +27,109 @@ public class ToDoItem {
 		NOTDONE, DONE
 	};
 
+	@Ignore
 	public final static String ID = "ID";
+	@Ignore
 	public final static String TITLE = "title";
+	@Ignore
 	public final static String PRIORITY = "priority";
+	@Ignore
 	public final static String STATUS = "status";
+	@Ignore
 	public final static String DATE = "date";
-
+	@Ignore
 	public final static SimpleDateFormat FORMAT = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss", Locale.US);
 
-	private long mID;
-	private String mTitle = new String();
-	private Priority mPriority = Priority.LOW;
-	private Status   mStatus = Status.NOTDONE;
-	private Date mDate = new Date();
+	@PrimaryKey(autoGenerate = true)
+	private long id;
 
+	private String title = new String();
+	@TypeConverters(PriorityConverter.class)
+	private Priority priority = Priority.LOW;
+	@TypeConverters(StatusConverter.class)
+	private Status status = Status.NOTDONE;
+	@TypeConverters(DateConverter.class)
+	private Date date = new Date();
+
+	@Ignore
 	ToDoItem(String title, Priority priority, Status status, Date date) {
-		this.mTitle = title;
-		this.mPriority = priority;
-		this.mStatus = status;
-		this.mDate = date;
+		this.title = title;
+		this.priority = priority;
+		this.status = status;
+		this.date = date;
 	}
 
-    public ToDoItem(long ID, String title, String priority, String status, String date) {
-        this.mID = ID;
-        this.mTitle = title;
-        this.mPriority = Priority.valueOf(priority);
-        this.mStatus = Status.valueOf(status);
-        try {
-            mDate = ToDoItem.FORMAT.parse(date);
-        } catch (ParseException e) {
-            mDate = new Date();
-        }
+    public ToDoItem(long id, String title, Priority priority, Status status, Date date) {
+        this.id = id;
+        this.title = title;
+        this.priority = priority;
+        this.status = status;
+		this.date = date;
     }
 
-	// Create a new ToDoItem from data packaged in an Intent
-
-	ToDoItem(Intent intent) {
-		mID = intent.getLongExtra(ToDoItem.ID,0); //TODO think best default value for ID
-		mTitle = intent.getStringExtra(ToDoItem.TITLE);
-		mPriority = Priority.valueOf(intent.getStringExtra(ToDoItem.PRIORITY));
-		mStatus = Status.valueOf(intent.getStringExtra(ToDoItem.STATUS));
-
+	@Ignore
+	public ToDoItem(long id, String title, String priority, String status, String date) {
+		this.id = id;
+		this.title = title;
+		this.priority = Priority.valueOf(priority);
+		this.status = Status.valueOf(status);
 		try {
-			mDate = ToDoItem.FORMAT.parse(intent.getStringExtra(ToDoItem.DATE));
+			this.date = ToDoItem.FORMAT.parse(date);
 		} catch (ParseException e) {
-			mDate = new Date();
+			this.date = new Date();
 		}
 	}
 
-    public long getID() { return mID; }
+	// Create a new ToDoItem from data packaged in an Intent
+	@Ignore
+	ToDoItem(Intent intent) {
+		id = intent.getLongExtra(ToDoItem.ID,0); //TODO think best default value for ID
+		title = intent.getStringExtra(ToDoItem.TITLE);
+		priority = Priority.valueOf(intent.getStringExtra(ToDoItem.PRIORITY));
+		status = Status.valueOf(intent.getStringExtra(ToDoItem.STATUS));
 
-    public void setID(long ID) { this.mID = ID; }
+		try {
+			date = ToDoItem.FORMAT.parse(intent.getStringExtra(ToDoItem.DATE));
+		} catch (ParseException e) {
+			date = new Date();
+		}
+	}
+
+    public long getId() { return id; }
+
+    public void setId(long ID) { this.id = ID; }
 
     public String getTitle() {
-		return mTitle;
+		return title;
 	}
 
 	public void setTitle(String title) {
-		mTitle = title;
+		this.title = title;
 	}
 
 	public Priority getPriority() {
-		return mPriority;
+		return priority;
 	}
 
 	public void setPriority(Priority priority) {
-		mPriority = priority;
+		this.priority = priority;
 	}
 
 	public Status getStatus() {
-		return mStatus;
+		return status;
 	}
 
 	public void setStatus(Status status) {
-		mStatus = status;
+		this.status = status;
 	}
 
 	public Date getDate() {
-		return mDate;
+		return date;
 	}
 
 	public void setDate(Date date) {
-		mDate = date;
+		this.date = date;
 	}
 
 	// Take a set of String data values and 
@@ -118,14 +146,14 @@ public class ToDoItem {
 	}
 
 	public String toString() {
-		return mID + ITEM_SEP + mTitle + ITEM_SEP + mPriority + ITEM_SEP + mStatus + ITEM_SEP
-				+ FORMAT.format(mDate);
+		return id + ITEM_SEP + title + ITEM_SEP + priority + ITEM_SEP + status + ITEM_SEP
+				+ FORMAT.format(date);
 	}
 
 	public String toLog() {
-		return "ID: " + mID + ITEM_SEP + "Title:" + mTitle + ITEM_SEP + "Priority:" + mPriority
-				+ ITEM_SEP + "Status:" + mStatus + ITEM_SEP + "Date:"
-				+ FORMAT.format(mDate);
+		return "ID: " + id + ITEM_SEP + "Title:" + title + ITEM_SEP + "Priority:" + priority
+				+ ITEM_SEP + "Status:" + status + ITEM_SEP + "Date:"
+				+ FORMAT.format(date);
 	}
 
 }

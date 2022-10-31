@@ -1,6 +1,7 @@
 package es.unex.giiis.asee.todomanager_db;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 
 import es.unex.giiis.asee.todomanager_db.database.ToDoItemCRUD;
+import es.unex.giiis.asee.todomanager_db.roomdb.ToDoDatabase;
 
 public class ToDoManagerActivity extends AppCompatActivity {
 
@@ -92,15 +94,8 @@ public class ToDoManagerActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK){
                 ToDoItem item = new ToDoItem(data);
 
-                //insert into DB
-                ToDoItemCRUD crud = ToDoItemCRUD.getInstance(this);
-                long id = crud.insert(item);
-
-                //update item ID
-                item.setID(id);
-
-                //insert into adapter list
-                mAdapter.add(item);
+                //Se inserta el item recibido en la base de datos
+                new AsyncInsert().execute(item);
             }
         }
 
@@ -167,9 +162,9 @@ public class ToDoManagerActivity extends AppCompatActivity {
 
     // Load stored ToDoItems
     private void loadItems() {
-        ToDoItemCRUD crud = ToDoItemCRUD.getInstance(this);
-        List<ToDoItem> items = crud.getAll();
-        mAdapter.load(items);
+
+        //Se cargan los items almacenados en la base de datos
+        new AsyncLoad().execute();
     }
 
     private void log(String msg) {
@@ -181,5 +176,40 @@ public class ToDoManagerActivity extends AppCompatActivity {
         Log.i(TAG, msg);
     }
 
+    class AsyncLoad extends AsyncTask<Void, Void, List<ToDoItem>>{
+
+        @Override
+        protected List<ToDoItem> doInBackground(Void... voids){
+            ToDoDatabase todoDb = ToDoDatabase.getDatabase(ToDoManagerActivity.this);
+            List<ToDoItem> items = todoDb.toDoItemDao().getAll();
+
+            return items;
+        }
+
+        @Override
+        protected void onPostExecute(List<ToDoItem> items){
+            super.onPostExecute(items);
+            mAdapter.load(items);
+        }
+    }
+
+    class AsyncInsert extends AsyncTask<ToDoItem, Void, ToDoItem>{
+
+        @Override
+        protected ToDoItem doInBackground(ToDoItem... items){
+            ToDoDatabase todoDb = ToDoDatabase.getDatabase(ToDoManagerActivity.this);
+            Long id = todoDb.toDoItemDao().insert(items[0]);
+
+            items[0].setId(id);
+
+            return items[0];
+        }
+
+        @Override
+        protected void onPostExecute(ToDoItem item){
+            super.onPostExecute(item);
+            mAdapter.add(item);
+        }
+    }
 
 }

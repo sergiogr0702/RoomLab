@@ -138,7 +138,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
                     }
 
                     ToDoItemCRUD crud = ToDoItemCRUD.getInstance(mContext);
-                    crud.updateStatus(toDoItem.getID(),toDoItem.getStatus());
+                    crud.updateStatus(toDoItem.getId(),toDoItem.getStatus());
 
                 }});
 
